@@ -69,6 +69,7 @@ func connect_tool_buttons() -> void:
 
 
 func _on_brush_button_pressed(button_name: String) -> void:
+	move_mode_active = false
 	# When a brush button is pressed, select the brush from MapRules as before:
 	print("Brush button pressed:", button_name)
 	var map_rules_dict = MapRules.create_dict()

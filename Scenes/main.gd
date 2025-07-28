@@ -11,6 +11,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released(LOAD_DIALOGUE):
 		EditorSquare.load_dialog()
 	elif event.is_action_released(NEW_MAP):
-		EditorSquare.load_empty_map()
+		EditorSquare.new_map_dialog()
 	elif event.is_action_released(SAVE_MAP):
 		EditorSquare.save_dialog_opt()

@@ -11,6 +11,8 @@ func _ready():
 	var file_menu = file_menu_btn.get_popup()
 	file_menu.add_item("New")
 	file_menu.add_item("Open...")
+	file_menu.add_item("Save")
+	
 	file_menu.add_separator()
 	file_menu.add_item("Exit")
 	file_menu.id_pressed.connect(Callable(self, "_on_menu_item_pressed").bind(file_menu))
@@ -26,6 +28,8 @@ func _ready():
 	edit_menu.add_item("Paste")
 	edit_menu.id_pressed.connect(Callable(self, "_on_menu_item_pressed").bind(edit_menu))
 	
+	
+	
 	# Create About menu button
 	var about_menu_btn = MenuButton.new()
 	about_menu_btn.text = "About"
@@ -39,9 +43,11 @@ func _on_menu_item_pressed(id, popup_menu):
 	print("Menu item selected:", item_text)
 	match item_text:
 		"New":
-			EditorSquare.load_empty_map()
+			EditorSquare.new_map_dialog()
 		"Open...":
 			EditorSquare.load_dialog()
+		"Save":
+			EditorSquare.save_dialog_opt()
 		"Exit":
 			get_tree().quit()
 		"Undo":

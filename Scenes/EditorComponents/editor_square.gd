@@ -12,6 +12,8 @@ extends Control
 
 
 @onready var bottom_line_edit: LineEdit = LineEdit.new()
+@onready var new_window:Window = $NewWindow
+
 var editing_button: Button = null
 
 var FileDialogPacked:PackedScene
@@ -48,7 +50,11 @@ func _ready() -> void:
 	var parent_width = get_parent().size.x
 	var target_width = parent_width - toolbar_width
 	MapButtons.custom_minimum_size.x = target_width
-
+	
+	var confirm_btn:Button = new_window.get_node("HBoxContainer/Confirm")
+	var cancel_btn:Button = new_window.get_node("HBoxContainer/Cancel")
+	confirm_btn.pressed.connect(_connect_new_map)
+	cancel_btn.pressed.connect(_connect_new_map_cancel)
 
 func save_map_to_csv(path: String) -> void:
 	if not MapButtons:
@@ -358,3 +364,19 @@ func save_dialog_opt() -> void:
 	add_child(save_dialog)
 	save_dialog.file_selected.connect(save_map_to_csv)
 	save_dialog.show()
+
+func _connect_new_map() -> void:
+	var linetext:String = $NewWindow/LineEdit.text
+	var is_valid_int = linetext.is_valid_int()
+	
+	if is_valid_int:
+		map_size = int(linetext)
+		load_empty_map()
+		_connect_new_map_cancel()
+
+func _connect_new_map_cancel() -> void:
+	new_window.hide()
+	$NewWindow/LineEdit.text = ""
+
+func new_map_dialog() -> void:
+	new_window.show()
