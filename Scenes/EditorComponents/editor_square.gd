@@ -18,9 +18,16 @@ var editing_button: Button = null
 
 var FileDialogPacked:PackedScene
 var FileSaveDialogPacked:PackedScene
+var headers_visible: bool = true
+var scaling_enabled:bool = true
+
 
 var MapRulesDict:Dictionary
 @onready var button_theme:Theme = preload("res://Scenes/EditorComponents/button_cell.tres")
+
+const BASE_BTN_SIZE:Vector2 = Vector2(40, 40)  # Base size for buttons
+const MIN_BTN_SIZE:Vector2 = Vector2(16, 16)   # Minimum allowed size for buttons
+
 
 func _ready() -> void:
 	FileDialogPacked = preload("res://Scenes/EditorComponents/Dialogs/LoadMap.tscn")
@@ -41,7 +48,6 @@ func _ready() -> void:
 	bottom_line_edit.size = Vector2(get_viewport_rect().size.x - 20, 30)  # width minus 10 + 10 px margins, height 30 px
 	
 	bottom_line_edit.visible = false
-	
 	
 	bottom_line_edit.text_submitted.connect(Callable(self, "_on_bottom_edit_entered"))
 	bottom_line_edit.connect("focus_exited", Callable(self, "_on_bottom_edit_focus_exited"))
@@ -323,33 +329,135 @@ func remove_node_children(node:Node) -> void:
 	for n in node.get_children():
 		node.remove_child(n)
 		n.queue_free() 
+		
+		
+
+func toggle_headers_visibility() -> void:
+	headers_visible = not headers_visible
+
+	var children = MapButtons.get_children()
+
+	if children.size() == 0:
+		return
+
+	var cols = MapButtons.columns
+
+	# First row: index 0 through cols-1
+	for i in range(cols):
+		if i < children.size():
+			children[i].visible = headers_visible
+
+	# First column: every (cols)th child starting at 0, ignoring the first row already processed
+	for row in range(1, int(ceil(children.size() / cols))):
+		var idx = row * cols
+		if idx < children.size():
+			children[idx].visible = headers_visible
+
+
+func get_column_label(index: int) -> String:
+	var result = ""
+	var n = index
+	while n >= 0:
+		var remainder = n % 26                      # remainder: int
+		var code = remainder + 'A'.unicode_at(0)               # 'A'[0]: returns int 65
+		result = char(code) + result                 # char(int) converts code to String
+		n = int(n / 26) - 1
+	return result
+
+
+
+func create_header_label(text: String) -> Label:
+	var label = Label.new()
+	label.text = text
+	label.horizontal_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	label.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	label.custom_minimum_size = Vector2(40, 40)  # Adjust for your button size
+
+	# Optional: style label to look visually distinct as header
+	label.add_theme_color_override("font_color", Color.YELLOW)
+
+	return label
+
+
+
 
 func populate_map(csv_map: Array) -> void:
 	if not MapButtons:
 		print("MapButtons GridContainer is not assigned!")
 		return
 
-	remove_node_children(MapButtons) # Remove any existing buttons
+	remove_node_children(MapButtons)  # Remove all previous children (buttons and labels)
 
-	# Optionally, ensure GridContainer columns matches map_size
-	MapButtons.columns = map_size
+	# Columns + 1 to add left header column
+	MapButtons.columns = map_size + 1
 
-	# We iterate rows and columns to create buttons for each cell
+	# Add top-left corner label ("x")
+	var top_left_label = create_header_label("x")
+	MapButtons.add_child(top_left_label)
+
+	# Add column header labels A, B, C... AA, AB...
+	for col_index in range(map_size):
+		var col_label_str = get_column_label(col_index)
+		var header_label = create_header_label(col_label_str)
+		MapButtons.add_child(header_label)
+
+	# Add rows
 	for row_index in range(map_size):
+		# Add row header first (1, 2, 3...)
+		var row_label = create_header_label(str(row_index + 1))
+		MapButtons.add_child(row_label)
+
+		# Add buttons for each cell from csv_map
 		if row_index >= csv_map.size():
 			print("Row index out of CSV bounds:", row_index)
 			break
 		var row = csv_map[row_index]
+
 		for col_index in range(map_size):
 			if col_index >= row.size():
 				print("Column index out of bounds at row:", row_index, "col:", col_index)
 				break
 
 			var cell_text: String = str(row[col_index])
-			
-			# Create a new button for this cell
 			var btn = create_editable_button(cell_text)
 			MapButtons.add_child(btn)
+	var map_factor:float = calculate_scale_factor(map_size)
+	print(calculate_scale_factor(map_size))
+	scale = Vector2(map_factor, map_factor)
+
+
+func calculate_scale_factor(map_size: int, base_cell_size: Vector2 = Vector2(40, 40), min_scale: float = 0.3) -> float:
+	if map_size < 20:
+		# No scaling below map size 20
+		return 1.0
+
+	# Get available size inside parent container with some padding
+	var parent_size = get_size()
+	var padding = Vector2(10, 10)
+	var available_size = parent_size - padding * 2
+
+	# Number of columns and rows including headers
+	var total_cells = map_size + 1
+
+	# Required size for whole grid at scale 1
+	var required_width = base_cell_size.x * total_cells
+	var required_height = base_cell_size.y * total_cells
+
+	# Calculate scale factors needed to fit width and height respectively
+	var scale_x = available_size.x / required_width
+	var scale_y = available_size.y / required_height
+
+	# The scale must fit both width and height, so take the minimum scale factor
+	var scale1 = min(scale_x, scale_y)
+
+	# Scale must not be bigger than 1, and not smaller than min_scale
+	scale1 = clamp(scale1, min_scale, 1.0)
+
+	return scale1
+
+
 
 func load_dialog() -> void:
 	print("Load Connect")

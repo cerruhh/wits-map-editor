@@ -16,6 +16,15 @@ func _ready():
 	file_menu.add_separator()
 	file_menu.add_item("Exit")
 	file_menu.id_pressed.connect(Callable(self, "_on_menu_item_pressed").bind(file_menu))
+	
+	var view_menu_btn = MenuButton.new()
+	view_menu_btn.text = "View"
+	toolbar.add_child(view_menu_btn)
+	
+	var view_menu = view_menu_btn.get_popup()
+	view_menu.add_item("Toggle Scaling")
+	
+	view_menu.id_pressed.connect(Callable(self, "_on_view_item_pressed").bind(view_menu))
 
 func _on_menu_item_pressed(id, popup_menu):
 	var item_text = popup_menu.get_item_text(id)
@@ -29,5 +38,23 @@ func _on_menu_item_pressed(id, popup_menu):
 			EditorSquare.save_dialog_opt()
 		"Exit":
 			get_tree().quit()
+		_:
+			print("Unknown menu item")
+
+func _on_view_item_pressed(id, popup_menu) -> void:
+	var item_text = popup_menu.get_item_text(id)
+	print("Menu item selected:", item_text)
+	match item_text:
+		"Toggle Scaling":
+			print("ViewScaling")
+			EditorSquare.scaling_enabled = !EditorSquare.scaling_enabled
+			if EditorSquare.scaling_enabled:
+				var scale_float = EditorSquare.calculate_scale_factor(EditorSquare.map_size)
+				EditorSquare.scale = Vector2(scale_float, scale_float)
+			else:
+				EditorSquare.scale = Vector2(1,1)
+		"View Border Index":
+			print("Border Index View")
+			EditorSquare.toggle_headers_visibility()
 		_:
 			print("Unknown menu item")

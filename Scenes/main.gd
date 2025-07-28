@@ -7,10 +7,10 @@ extends Control
 @export_category("Components")
 @export var EditorSquare:Control
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released(LOAD_DIALOGUE):
+func _process(delta: float) -> void:
+	if Input.is_action_just_released(LOAD_DIALOGUE):
 		EditorSquare.load_dialog()
-	elif event.is_action_released(NEW_MAP):
+	elif Input.is_action_just_released(NEW_MAP):
 		EditorSquare.new_map_dialog()
-	elif event.is_action_released(SAVE_MAP):
+	elif Input.is_action_just_released(SAVE_MAP):
 		EditorSquare.save_dialog_opt()
