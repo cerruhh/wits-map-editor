@@ -22,7 +22,7 @@ func _ready():
 	toolbar.add_child(view_menu_btn)
 	
 	var view_menu = view_menu_btn.get_popup()
-	view_menu.add_item("Toggle Scaling")
+	view_menu.add_item("Change Scaling...")
 	
 	view_menu.id_pressed.connect(Callable(self, "_on_view_item_pressed").bind(view_menu))
 
@@ -45,14 +45,13 @@ func _on_view_item_pressed(id, popup_menu) -> void:
 	var item_text = popup_menu.get_item_text(id)
 	print("Menu item selected:", item_text)
 	match item_text:
-		"Toggle Scaling":
+		"Change Scaling...":
 			print("ViewScaling")
-			EditorSquare.scaling_enabled = !EditorSquare.scaling_enabled
-			if EditorSquare.scaling_enabled:
-				var scale_float = EditorSquare.calculate_scale_factor(EditorSquare.map_size)
-				EditorSquare.scale = Vector2(scale_float, scale_float)
+			var SliderWindow:Window = EditorSquare.SliderWindow
+			if SliderWindow.visible:
+				EditorSquare.SliderWindow.hide()
 			else:
-				EditorSquare.scale = Vector2(1,1)
+				EditorSquare.SliderWindow.show()
 		"View Border Index":
 			print("Border Index View")
 			EditorSquare.toggle_headers_visibility()

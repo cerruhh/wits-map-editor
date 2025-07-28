@@ -13,6 +13,7 @@ extends Control
 
 @onready var bottom_line_edit: LineEdit = LineEdit.new()
 @onready var new_window:Window = $NewWindow
+@onready var SliderWindow:Window = $SliderWindow
 
 var editing_button: Button = null
 
@@ -61,6 +62,20 @@ func _ready() -> void:
 	var cancel_btn:Button = new_window.get_node("HBoxContainer/Cancel")
 	confirm_btn.pressed.connect(_connect_new_map)
 	cancel_btn.pressed.connect(_connect_new_map_cancel)
+	
+	var slider_scale:HSlider = SliderWindow.get_node("ScaleSlider")
+	slider_scale.value_changed.connect(change_scale)
+	
+	SliderWindow.get_node("Close").pressed.connect(toggle_window)
+
+func change_scale(val:float) -> void:
+	scale = Vector2(val, val)
+	
+func toggle_window() -> void:
+	if SliderWindow.visible:
+		SliderWindow.hide()
+	else:
+		SliderWindow.show()
 
 func save_map_to_csv(path: String) -> void:
 	if not MapButtons:
