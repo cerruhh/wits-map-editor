@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapRulesResource" load_steps=2 format=3 uid="uid://ct02sh8xtj3q7"]
+
+[ext_resource type="Script" uid="uid://dq5h0i1n4hidu" path="res://Scenes/Resources/map_rules.gd" id="1_mf1n3"]
+
+[resource]
+script = ExtResource("1_mf1n3")
+high_walls = Array[String](["🧱"])
+breakable_high_walls = Array[String](["❌"])
+low_walls = Array[String](["🛡️", "🌵", "🪑", "🛏️"])
+high_doors = Array[String](["🚪"])
+enemy = Array[String](["🔫"])
+civilian = Array[String](["🙂"])
+dead_body = Array[String](["☠️"])
+money = Array[String](["💰"])
+water = Array[String](["🌊"])
+fog = Array[String](["⬛"])
+upstairs_marker = Array[String](["🔺"])
+downstairs_marker = Array[String](["🔻"])
+metadata/_custom_type_script = "uid://dq5h0i1n4hidu"

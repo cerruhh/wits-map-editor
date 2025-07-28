@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjjj8luqd7ial"]
+
+[ext_resource type="Script" uid="uid://b628mypy7hjxa" path="res://Scenes/EditorComponents/editor_square.gd" id="1_hj8s5"]
+[ext_resource type="Resource" uid="uid://ct02sh8xtj3q7" path="res://Defaults/defaultMapLegend.tres" id="2_ofx5g"]
+
+[node name="EditorSquare" type="Control" node_paths=PackedStringArray("MapButtons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hj8s5")
+MapButtons = NodePath("GridContainer")
+MapRules = ExtResource("2_ofx5g")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

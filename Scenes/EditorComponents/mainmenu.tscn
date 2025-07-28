@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk3swu23106dd"]
+
+[ext_resource type="Script" uid="uid://bicv5cndyd5ln" path="res://Scenes/EditorComponents/mainmenu.gd" id="1_184a1"]
+
+[node name="MenuBar" type="MenuBar" node_paths=PackedStringArray("toolbar")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_184a1")
+toolbar = NodePath("HBoxContainer")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

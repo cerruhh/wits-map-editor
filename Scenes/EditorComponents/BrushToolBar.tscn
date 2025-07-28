@@ -1,0 +1,131 @@
+[gd_scene load_steps=4 format=3 uid="uid://bda5vunngp7v6"]
+
+[ext_resource type="Script" uid="uid://bwys4joduqq2e" path="res://Scenes/EditorComponents/brush_tool_bar.gd" id="1_ujbcn"]
+[ext_resource type="Theme" uid="uid://2y0i17368jli" path="res://Scenes/EditorComponents/BrushToolBarTheme.tres" id="1_xldtn"]
+[ext_resource type="Resource" uid="uid://ct02sh8xtj3q7" path="res://Defaults/defaultMapLegend.tres" id="2_spx84"]
+
+[node name="ToolBar" type="Control" node_paths=PackedStringArray("hbox", "toolsbar")]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("1_ujbcn")
+hbox = NodePath("VBoxContainer/Brushes")
+toolsbar = NodePath("VBoxContainer/Tools")
+MapRules = ExtResource("2_spx84")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 106.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Tools" type="HBoxContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+alignment = 1
+
+[node name="TOOL_ERASER" type="Button" parent="VBoxContainer/Tools"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "eraser"
+
+[node name="TOOL_CUSTOM" type="Button" parent="VBoxContainer/Tools"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "custom"
+
+[node name="TOOL_MOVE" type="Button" parent="VBoxContainer/Tools"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "move"
+
+[node name="Brushes" type="HBoxContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+alignment = 1
+
+[node name="highwall" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "highwall"
+
+[node name="highwallbreak" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "highwallX"
+
+[node name="low_wall" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "low wall"
+
+[node name="high_doors" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "high doors"
+
+[node name="enemy" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "enemy"
+
+[node name="civilian" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "civilian"
+
+[node name="dead_enemy" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "dead enemy"
+
+[node name="money" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "money"
+
+[node name="water" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "water"
+
+[node name="fog" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "fog
+"
+
+[node name="upstair" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "upstairs"
+
+[node name="downstairs" type="Button" parent="VBoxContainer/Brushes"]
+layout_mode = 2
+theme = ExtResource("1_xldtn")
+text = "downstairs
+"

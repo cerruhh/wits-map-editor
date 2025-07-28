@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://tqyuul43c2st"]
+
+[node name="SaveMap" type="FileDialog"]
+title = "Save a Map"
+initial_position = 1
+size = Vector2i(652, 360)
+access = 2
+filters = PackedStringArray("*.csv")

@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b741da60s04l6"
+
+[deps]
+
+files=["res://test_maps/wits-testimony.🛡️.translation"]
+
+source_file="res://test_maps/wits-testimony.csv"
+dest_files=["res://test_maps/wits-testimony.🛡️.translation"]
+
+[params]
+
+compress=true
+delimiter=0

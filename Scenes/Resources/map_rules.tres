@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MapRulesResource" load_steps=2 format=3 uid="uid://vd4osf7x33b6"]
+
+[ext_resource type="Script" uid="uid://dq5h0i1n4hidu" path="res://Scenes/Resources/map_rules.gd" id="1_ae3b0"]
+
+[resource]
+script = ExtResource("1_ae3b0")
+high_walls = null
+breakable_high_walls = null
+low_walls = null
+high_doors = null
+enemy = null
+civilian = null
+dead_body = null
+money = null
+water = null
+fog = null
+upstairs_marker = null
+downstairs_marker = null

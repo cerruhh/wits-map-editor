@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c2rxyqchk2q85"]
+
+[ext_resource type="FontFile" uid="uid://diidt4gyr1mlb" path="res://Fonts/Noto_Color_Emoji/NotoColorEmoji-Regular.ttf" id="1_11jby"]
+
+[resource]
+default_font = ExtResource("1_11jby")
+Button/fonts/font = ExtResource("1_11jby")

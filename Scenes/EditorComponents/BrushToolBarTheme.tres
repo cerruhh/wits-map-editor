@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://2y0i17368jli"]
+
+[ext_resource type="FontFile" uid="uid://chvuu3xoirucm" path="res://Fonts/arial-font/arial.ttf" id="1_ke70n"]
+
+[resource]
+default_font = ExtResource("1_ke70n")
+Button/fonts/font = ExtResource("1_ke70n")

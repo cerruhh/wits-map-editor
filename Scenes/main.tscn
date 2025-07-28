@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://jsntiiv4vbvy"]
+
+[ext_resource type="Script" uid="uid://174gpqs4un5f" path="res://Scenes/main.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://cjjj8luqd7ial" path="res://Scenes/EditorComponents/EditorSquare.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://bda5vunngp7v6" path="res://Scenes/EditorComponents/BrushToolBar.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://dk3swu23106dd" path="res://Scenes/EditorComponents/mainmenu.tscn" id="4_jjvhh"]
+
+[node name="Main" type="Control" node_paths=PackedStringArray("EditorSquare")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bo1nx")
+EditorSquare = NodePath("EditorSquare")
+
+[node name="EditorSquare" parent="." node_paths=PackedStringArray("ToolBar") instance=ExtResource("1_jjgbg")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+ToolBar = NodePath("../ToolBar")
+
+[node name="ToolBar" parent="." instance=ExtResource("2_8gbba")]
+layout_mode = 1
+
+[node name="MenuBar" parent="." node_paths=PackedStringArray("EditorSquare") instance=ExtResource("4_jjvhh")]
+layout_mode = 0
+EditorSquare = NodePath("../EditorSquare")
