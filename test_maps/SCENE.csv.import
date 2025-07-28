@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dbl0dd465qfj"
+
+[deps]
+
+files=["res://test_maps/SCENE.🛡️.translation"]
+
+source_file="res://test_maps/SCENE.csv"
+dest_files=["res://test_maps/SCENE.🛡️.translation"]
+
+[params]
+
+compress=true
+delimiter=0

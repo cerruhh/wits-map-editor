@@ -81,6 +81,7 @@ text = "Confirm"
 title = "Set scale"
 initial_position = 1
 size = Vector2i(200, 100)
+visible = false
 
 [node name="Labl" type="Label" parent="SliderWindow"]
 anchors_preset = 10

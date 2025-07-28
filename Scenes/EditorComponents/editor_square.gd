@@ -84,37 +84,48 @@ func save_map_to_csv(path: String) -> void:
 
 	var rows: Array = []
 
-	# Assume MapButtons' children are buttons added row-wise in order
 	var children = MapButtons.get_children()
-	var total_buttons = children.size()
+	var total_children = children.size()
 
-	# Make sure we have enough buttons for a full map_size x map_size grid
-	if total_buttons < map_size * map_size:
-		print("Warning: Not enough buttons to fill the map grid!")
-	
-	for row_i in range(map_size):
+	# MapButtons columns and rows should be map_size + 1 (including headers)
+	var expected_columns = map_size + 1
+	var expected_rows = map_size + 1
+
+	# Confirm children count matches expected grid size
+	if total_children < expected_columns * expected_rows:
+		print("Warning: Not enough children in MapButtons for full grid!")
+
+	# The indexes in children go row-wise:
+	# Index = row * columns + col
+	# Col 0 and Row 0 are headers (Labels)
+	# Map cells start at row 1, col 1
+
+	for row_i in range(1, expected_rows):  # skip header row (0)
 		var row: Array = []
-		for col_i in range(map_size):
-			var index = row_i * map_size + col_i
-			if index < total_buttons:
-				var btn = children[index]
-				if btn is Button:
-					row.append(btn.text)
+		for col_i in range(1, expected_columns):  # skip header col (0)
+			var index = row_i * expected_columns + col_i
+			if index < total_children:
+				var child = children[index]
+				if child is Button:
+					row.append(child.text)
 				else:
-					row.append("")  # Fallback if not a Button for some reason
+					# Could be a Label or something else in unexpected position
+					row.append("")
 			else:
-				row.append("")  # Fallback if out of bounds
+				row.append("")
 		rows.append(row)
 
-	# Convert 2D array to CSV string
+	# Convert rows (2D array) to CSV text
 	var csv_lines: Array = []
 	for row in rows:
-		# Escape commas or quotes if necessary, here simple join assuming no commas
+		# If you expect special chars, implement proper CSV escaping here
 		var line = ",".join(row)
 		csv_lines.append(line)
 	var csv_text = "\n".join(csv_lines)
 
-	# Save CSV string to file
+	print(csv_text)
+
+	# Save to file
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		print("Failed to open file for writing: ", path)
@@ -123,7 +134,6 @@ func save_map_to_csv(path: String) -> void:
 	file.close()
 
 	print("Map saved to: ", path)
-
 
 func create_empty_array(arrsize: int) -> Array:
 	var map_array: Array = []
@@ -303,6 +313,7 @@ func read_csv_file(path: String) -> Array:
 
 	while !file.eof_reached():
 		var row: Array = file.get_csv_line()
+		print(row)
 		if row.size() == 0:
 			continue
 		result.append(row)
@@ -320,7 +331,8 @@ func load_map(map: String = "") -> void:
 	if map_csv.size() == 0:
 		print("Empty or invalid CSV")
 		return
-
+	
+	map_size = map_csv[0].size()
 	populate_map(map_csv)
 	map_loaded = true
 
