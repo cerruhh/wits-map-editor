@@ -13,6 +13,7 @@ config_version=5
 config/name="wits-editor"
 config/description="The map editor for wITS games"
 config/version="0.0.1-d"
+config/tags=PackedStringArray("its")
 run/main_scene="uid://jsntiiv4vbvy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/show_image=false
@@ -23,6 +24,8 @@ config/icon="uid://dua7eg78xhp14"
 window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/size/viewport_width.fullres=2560
+window/size/viewport_height.fullres=1440
 
 [editor_plugins]
 

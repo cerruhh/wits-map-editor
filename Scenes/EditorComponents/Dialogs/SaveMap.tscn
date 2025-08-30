@@ -6,3 +6,4 @@ initial_position = 1
 size = Vector2i(652, 360)
 access = 2
 filters = PackedStringArray("*.csv")
+use_native_dialog = true
